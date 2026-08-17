@@ -1,0 +1,7 @@
+# API Key — 每个用户本地生成，绝不提交
+.env
+
+# 杂项
+node_modules/
+.DS_Store
+Thumbs.db
