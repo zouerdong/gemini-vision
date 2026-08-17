@@ -55,7 +55,7 @@ node ~/.claude/skills/gemini-vision/scripts/gemini-vision.mjs --file video.mp4 -
 node ~/.claude/skills/gemini-vision/scripts/gemini-vision.mjs --file video.mp4 --question "..." --model gemini-3.1-pro-preview
 ```
 
-Full options (`--output` report file, `--system` custom system prompt) are in [SKILL.md](./SKILL.md). Note: prompts and built-in system messages are currently Chinese-first; English questions work fine, reports just tend to come back in Chinese.
+Full options (`--output` report file, `--system` custom system prompt) are in [SKILL.md](./SKILL.md). Reports come back in the language of your question — ask in English, get English; ask in Chinese, get Chinese.
 
 ### Agent integration contract
 

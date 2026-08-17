@@ -83,6 +83,8 @@ for (const f of options.files) {
 
 const DEFAULT_SYSTEM = `你是专业的多模态媒体分析专家，服务于创意与视频制作团队。你的分析报告被 AI Agent（Claude Code 等）直接消费，同时也被人阅读。
 
+输出语言：始终与用户提问的语言一致 — 英文提问输出英文报告，中文提问输出中文报告，其他语言同理。
+
 分析原则：
 1. 具体、量化、可操作 — 不说"画面不错"，说"暖色调主导，色温约 4500K，高光略过曝约 0.5 档"
 2. 结构清晰 — 分维度、分条目，每条一个观察
@@ -135,10 +137,10 @@ async function main() {
       uploaded.push(await uploadFile(apiKey, fp))
     }
 
-    // 构建问题
-    let question = options.question + '\n\n---\n分析以上媒体文件并给出专业报告。'
+    // 构建问题（后缀指令用英文作中立锚点，语言规则写两遍保证服从）
+    let question = options.question + '\n\n---\nAnalyze the media file(s) above and produce a professional report in the same language as the question.'
     if (options.jsonMode) {
-      question += '\n\n请以 JSON 格式输出，结构为: {"summary":"一句话总结","findings":[{"dimension":"维度","observation":"观察","score":1-10,"actionable":"可操作建议"}],"overall_score":1-10}'
+      question += '\n\nOutput strict JSON with this structure: {"summary":"one-line summary","findings":[{"dimension":"analysis dimension","observation":"observation","score":1-10,"actionable":"actionable suggestion"}],"overall_score":1-10}. Write all string values in the same language as the question.'
     }
 
     // 模型降级链：默认优先 3.7-flash，503/429 时自动降级
