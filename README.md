@@ -4,7 +4,7 @@
 
 让你的 Claude Code 直接分析**视频、图片、音频** — 无论底层跑的是什么模型。
 
-如果你在 Claude Code 里接的是 GLM、DeepSeek 等没有原生多模态输入的主模型，这个 skill 让你调用 Gemini 的多模态能力：提炼参考视频的运镜与风格、核验 AI 生成内容的质量、对比多个版本的差异、提取可复用的制作框架。你自己两台电脑（Win + Mac）能用的，别人装完提供自己的 Key 一样能用。
+如果你在 Claude Code 里接的是 GLM、DeepSeek 等没有原生多模态输入的主模型，这个 skill 让你调用 Gemini 的多模态能力：提炼参考视频的运镜与风格、核验 AI 生成内容的质量、对比多个版本的差异、提取可复用的制作框架。只需一把你自己的 Gemini API Key，Windows 与 macOS 开箱即用。
 
 ## 特性
 
