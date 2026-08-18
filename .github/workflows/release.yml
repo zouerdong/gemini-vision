@@ -1,0 +1,20 @@
+# 推送 vX.Y.Z tag 时自动创建 GitHub Release
+# （自动更新检测读 releases/latest，因此 Release 必须随 tag 一起出现）
+
+name: release
+
+on:
+  push:
+    tags: ['v*']
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Create Release from tag
+        run: gh release create "$GITHUB_REF_NAME" --title "$GITHUB_REF_NAME" --generate-notes --latest
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
