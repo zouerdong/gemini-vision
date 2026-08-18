@@ -23,21 +23,33 @@ If you run Claude Code on GLM, DeepSeek, or any other model without native multi
 
 ## Install
 
+**Step 1 — Clone** (works on macOS / Linux / Windows, in any terminal):
+
 ```bash
-# 1. Clone into Claude Code's skills directory
 git clone https://github.com/zouerdong/gemini-vision ~/.claude/skills/gemini-vision
-
-# 2. Configure your API key
-cp ~/.claude/skills/gemini-vision/.env.example ~/.claude/skills/gemini-vision/.env
-# Edit .env and replace your-gemini-api-key-here with your real key
-
-# 3. Verify with any image
-node ~/.claude/skills/gemini-vision/scripts/gemini-vision.mjs --file test.jpg --question "Describe this image" --json
 ```
 
-If you see a JSON analysis on stdout, you're done. From then on, just say "take a look at this video" in any Claude Code session and the skill triggers.
+**Step 2 — Configure your API key** (same on every platform):
 
-**Windows users**: Claude Code runs commands through Git Bash, where `~` means `C:\Users\<you>` — the commands above work as-is.
+Open any Claude Code session and say:
+
+> Set up gemini-vision's GEMINI_API_KEY for me — my key is \<your key\>
+
+Claude writes the `.env` and verifies connectivity. Get a free key at [Google AI Studio](https://aistudio.google.com/apikey).
+
+Prefer doing it manually? Equivalent commands:
+
+```bash
+# macOS / Linux / Git Bash
+echo "GEMINI_API_KEY=<your key>" > ~/.claude/skills/gemini-vision/.env
+
+# Windows PowerShell
+notepad $env:USERPROFILE\.claude\skills\gemini-vision\.env   # add GEMINI_API_KEY=<your key> and save
+```
+
+**Step 3 — Verify**: in any Claude Code session, say "analyze this image with gemini-vision". Getting an analysis back means the install worked. From then on, phrases like "take a look at this video" trigger the skill automatically.
+
+**Windows note**: Claude Code runs commands through Git Bash, where `~` means `C:\Users\<you>` — every bash command on this page works as-is in Git Bash. In PowerShell, only Step 1's git clone is recommended (git expands `~` itself).
 
 ## Usage
 

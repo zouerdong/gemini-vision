@@ -23,21 +23,33 @@
 
 ## 安装
 
+**第 1 步 — 克隆**（macOS / Linux / Windows 通用，任何终端都能跑）：
+
 ```bash
-# 1. 克隆到 Claude Code 的 skills 目录
 git clone https://github.com/zouerdong/gemini-vision ~/.claude/skills/gemini-vision
-
-# 2. 配置你自己的 API Key
-cp ~/.claude/skills/gemini-vision/.env.example ~/.claude/skills/gemini-vision/.env
-# 编辑 .env，把 your-gemini-api-key-here 换成你的真实 Key
-
-# 3. 验证（拿任意一张图）
-node ~/.claude/skills/gemini-vision/scripts/gemini-vision.mjs --file test.jpg --question "描述这张图" --json
 ```
 
-看到 stdout 输出 JSON 分析结果即安装成功。之后在任意 Claude Code 会话里说"帮我看看这个视频"，skill 会自动触发。
+**第 2 步 — 配置你自己的 API Key**（全平台统一做法）：
 
-**Windows 用户**：Claude Code 默认走 Git Bash，`~` 即 `C:\Users\<你>`，上述命令原样可用。
+打开任意 Claude Code 会话，直接说：
+
+> 帮我配置 gemini-vision 的 GEMINI_API_KEY，我的 Key 是 \<你的Key\>
+
+Claude 会写好 `.env` 并验证连通。Key 在 [Google AI Studio](https://aistudio.google.com/apikey) 免费获取。
+
+喜欢手动配置的话，等价命令：
+
+```bash
+# macOS / Linux / Git Bash
+echo "GEMINI_API_KEY=<你的Key>" > ~/.claude/skills/gemini-vision/.env
+
+# Windows PowerShell
+notepad $env:USERPROFILE\.claude\skills\gemini-vision\.env   # 写入 GEMINI_API_KEY=<你的Key> 后保存
+```
+
+**第 3 步 — 验证**：在任意 Claude Code 会话里说"用 gemini-vision 分析这张图"，返回分析结果即安装成功。之后说"帮我看看这个视频"之类的话，skill 会自动触发。
+
+**Windows 用户注意**：Claude Code 执行命令走 Git Bash（`~` 即 `C:\Users\<你>`），本页所有 bash 命令在 Git Bash 里原样可用；PowerShell 里只建议跑第 1 步的 git clone（git 自己会展开 `~`）。
 
 ## 使用
 
