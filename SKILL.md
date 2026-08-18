@@ -74,10 +74,12 @@ Claude Code 调用时：
 2. **只读取 stdout**（`console.log`）：分析结果或 JSON
 3. **忽略 stderr**（`console.error`）：上传进度、token 统计、文件清理日志
 4. `--json` 模式下，stdout 为 API 强制的合法 JSON，可直接 `JSON.parse()`
+5. 若 stderr 出现 `⬆️ gemini-vision 有新版本` 提示，用一句话转告用户"有新版可更新"即可，不影响本次分析结果
 
 ## 注意
 
 - 视频上传后需等待云端处理，脚本自动轮询（进度打印到 stderr），通常 5-30 秒
 - 分析结束后自动删除云端文件，无需手动清理
-- 本 skill 由 git 仓库管理：在 skill 目录内 `git pull` 更新，本地 `.env` 不受影响
+- 本 skill 由 git 仓库管理：脚本每天自动检测一次新版本（stderr 提示），用户说「更新 gemini-vision」后执行 `git -C ~/.claude/skills/gemini-vision pull` 即可，本地 `.env` 不受影响
+- 遇到模型报错或降级链全部失效时，先拉取更新（通常是模型链过期），再排查其他原因
 - Gemini 分析结果供参考，不能替代人工最终判断

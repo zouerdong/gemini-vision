@@ -76,6 +76,20 @@ node ~/.claude/skills/gemini-vision/scripts/gemini-vision.mjs --file video.mp4 -
 1. **只读 stdout** — 分析结果（或合法 JSON）；stderr 是进度日志，忽略
 2. **`--json` 模式** — 通过 Gemini API 的 `responseMimeType: application/json` 强制合法 JSON，不依赖提示词措辞
 
+## 更新
+
+脚本每天自动检测一次新版本（查询 GitHub 最新 release，失败静默、绝不影响分析），发现新版会在日志中提示，Claude 会顺带转告你。升级只需在任意 Claude Code 会话说一句：
+
+> 更新 gemini-vision 到最新版
+
+或手动执行：
+
+```bash
+git -C ~/.claude/skills/gemini-vision pull   # 本地 .env 不受影响
+```
+
+Gemini 发布新模型后，作者会把降级链更新到最新版本 — 用户被提示后一句话即可用上。
+
 ## 模型降级链
 
 默认 `gemini-3.7-flash`，遇 503/429 自动降级：`3.7-flash → 3.6-flash → 3.5-flash → 3.5-flash-lite`。显式指定 `--model` 时不降级，失败即报错。

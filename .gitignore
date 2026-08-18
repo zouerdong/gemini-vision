@@ -1,6 +1,9 @@
 # API Key — 每个用户本地生成，绝不提交
 .env
 
+# 运行时缓存（每日版本检查的时间戳）
+.update-check
+
 # 杂项
 node_modules/
 .DS_Store

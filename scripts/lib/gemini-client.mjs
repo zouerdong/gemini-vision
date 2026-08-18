@@ -1,8 +1,8 @@
 /**
- * Gemini API 轻量封装 — 零外部依赖 v1.0
+ * Gemini API 轻量封装 — 零外部依赖 v1.1
  */
 
-import { readFileSync, statSync } from 'fs'
+import { readFileSync, writeFileSync, statSync } from 'fs'
 import { resolve, dirname } from 'path'
 import { fileURLToPath } from 'url'
 
@@ -234,6 +234,51 @@ export async function generateContent(apiKey, model, systemPrompt, userQuestion,
   }
 
   return text
+}
+
+// ─── 新版本检测 ────────────────────────────────────────
+
+const UPDATE_URL = 'https://api.github.com/repos/zouerdong/gemini-vision/releases/latest'
+const CHECK_INTERVAL = 24 * 60 * 60 * 1000
+
+/**
+ * 每天检查一次 GitHub 最新 release，发现新版本在 stderr 提示一行（Claude 会转告用户）。
+ * 任何失败（网络/限流/解析）都静默跳过，绝不影响、绝不阻塞分析。
+ */
+export async function checkForUpdate() {
+  try {
+    const marker = resolve(__dirname, '..', '..', '.update-check')
+    let last = 0
+    try { last = Number(readFileSync(marker, 'utf-8')) || 0 } catch (_) {}
+    if (Date.now() - last < CHECK_INTERVAL) return
+    writeFileSync(marker, String(Date.now()))  // 先记时间戳：失败的检查也隔天再试，避免每次分析都多等
+
+    const controller = new AbortController()
+    const t = setTimeout(() => controller.abort(), 5000)
+    const resp = await fetch(UPDATE_URL, {
+      headers: { 'User-Agent': 'gemini-vision' },
+      signal: controller.signal
+    })
+    clearTimeout(t)
+    if (!resp.ok) return
+
+    const pkg = JSON.parse(readFileSync(resolve(__dirname, '..', '..', 'package.json'), 'utf-8'))
+    const latest = ((await resp.json()).tag_name || '').replace(/^v/, '')
+    if (latest && isNewer(latest, pkg.version)) {
+      console.error(`⬆️ gemini-vision 有新版本 v${latest}（含最新模型降级链）。请转告用户：对 Claude Code 说「更新 gemini-vision」即可升级。`)
+    }
+  } catch (_) {}
+}
+
+/** 语义化版本比较：a 是否大于 b（仅 x.y.z 三段） */
+function isNewer(a, b) {
+  const pa = a.split('.').map(Number)
+  const pb = b.split('.').map(Number)
+  for (let i = 0; i < 3; i++) {
+    if ((pa[i] || 0) > (pb[i] || 0)) return true
+    if ((pa[i] || 0) < (pb[i] || 0)) return false
+  }
+  return false
 }
 
 // ─── Helpers ───────────────────────────────────────────

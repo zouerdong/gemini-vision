@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Gemini 多模态桥接 — 主入口 v1.0
+ * Gemini 多模态桥接 — 主入口 v1.1
  *
  * 用法:
  *   node gemini-vision.mjs --file <path> --question "<问题>"
@@ -17,7 +17,7 @@
  *   --system, -s  <text>   自定义系统提示词（可选，默认用内置）
  */
 
-import { loadApiKey, uploadFile, generateContent, deleteFile } from './lib/gemini-client.mjs'
+import { loadApiKey, uploadFile, generateContent, deleteFile, checkForUpdate } from './lib/gemini-client.mjs'
 import { writeFileSync, statSync } from 'fs'
 import { resolve } from 'path'
 
@@ -127,6 +127,7 @@ function isRetryable(err) {
 // ════════════════════════════════════════════════════════
 
 async function main() {
+  await checkForUpdate()  // 每天一次的新版本检测（有新版时 stderr 提示一行），失败静默
   const apiKey = loadApiKey()
   const uploaded = []
 

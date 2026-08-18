@@ -76,6 +76,20 @@ Two rules when calling from other skills or workflows:
 1. **Read stdout only** — the analysis result (or valid JSON); stderr is progress logging, ignore it
 2. **`--json` mode** — enforces valid JSON via Gemini's `responseMimeType: application/json`, independent of prompt wording
 
+## Updating
+
+The script checks for a new version once a day (a single GitHub release query; failures are silent and never affect analysis). When a newer release exists, a notice appears in the logs and Claude relays it to you. Upgrading is one sentence in any Claude Code session:
+
+> Update gemini-vision to the latest version
+
+Or manually:
+
+```bash
+git -C ~/.claude/skills/gemini-vision pull   # your local .env is untouched
+```
+
+When Gemini ships new models, the author updates the fallback chain — users get nudged and upgrade with one sentence to use the latest models.
+
 ## Model fallback chain
 
 Defaults to `gemini-3.7-flash`; on 503/429 it degrades automatically: `3.7-flash → 3.6-flash → 3.5-flash → 3.5-flash-lite`. An explicit `--model` never degrades — it fails loudly instead.
