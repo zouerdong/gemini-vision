@@ -1,5 +1,5 @@
 /**
- * Gemini API 轻量封装 — 零外部依赖 v1.2
+ * Gemini API 轻量封装 — 零外部依赖 v1.0
  */
 
 import { readFileSync, statSync } from 'fs'

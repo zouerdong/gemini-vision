@@ -1,6 +1,6 @@
 {
   "name": "gemini-vision",
-  "version": "1.2.0",
+  "version": "1.0.0",
   "description": "Lightweight Gemini multimodal bridge for Claude Code — video, image, and audio analysis for models without native multimodal input",
   "license": "MIT",
   "private": false,

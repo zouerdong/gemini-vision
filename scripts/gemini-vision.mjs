@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Gemini 多模态桥接 — 主入口 v1.2
+ * Gemini 多模态桥接 — 主入口 v1.0
  *
  * 用法:
  *   node gemini-vision.mjs --file <path> --question "<问题>"
