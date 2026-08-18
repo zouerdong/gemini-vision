@@ -25,7 +25,7 @@ If you run Claude Code on GLM, DeepSeek, or any other model without native multi
 
 ```bash
 # 1. Clone into Claude Code's skills directory
-git clone https://github.com/erdongzou1014-glitch/gemini-vision ~/.claude/skills/gemini-vision
+git clone https://github.com/zouerdong/gemini-vision ~/.claude/skills/gemini-vision
 
 # 2. Configure your API key
 cp ~/.claude/skills/gemini-vision/.env.example ~/.claude/skills/gemini-vision/.env

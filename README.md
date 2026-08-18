@@ -25,7 +25,7 @@
 
 ```bash
 # 1. 克隆到 Claude Code 的 skills 目录
-git clone https://github.com/erdongzou1014-glitch/gemini-vision ~/.claude/skills/gemini-vision
+git clone https://github.com/zouerdong/gemini-vision ~/.claude/skills/gemini-vision
 
 # 2. 配置你自己的 API Key
 cp ~/.claude/skills/gemini-vision/.env.example ~/.claude/skills/gemini-vision/.env
